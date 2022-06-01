@@ -4,7 +4,7 @@ parameters:
   resource_name:
     type: string
   resource-file-path:
-  type: string
+    type: string
   namespace:
     type: string
   cluster_name:
