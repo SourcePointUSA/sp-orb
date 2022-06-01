@@ -16,7 +16,10 @@ parameters:
     default: false
   branch_pattern:
     description: |
-      A comma separated list of regex matchable branch names. Notifications will only be sent if sent from a job from these branches. By default ".+" will be used to match all branches. Pattern must match the full string, no partial matches.
+      A comma separated list of regex matchable branch names. 
+      Notifications will only be sent if sent from a job from these branches. 
+      By default ".+" will be used to match all branches. 
+      Pattern must match the full string, no partial matches.
     type: string
     default: ".+"
 steps:
@@ -25,7 +28,7 @@ steps:
       command: |
         echo 'export SLACK_MESSAGE_HEADER="<< parameters.header >>"' >> $BASH_ENV
         echo 'export SLACK_GIT_URL="<< pipeline.project.git_url >>"' >> $BASH_ENV
-        if [ "<< parameters.link_to_workflow >>" = "true" ] 
+        if [ "<< parameters.link_to_workflow >>" = "true" ]
         then
           echo 'export CIRCLE_CI_ACTION_LINK="${SLACK_PARAM_CIRCLECI_HOST}/workflow-run/${CIRCLE_WORKFLOW_ID}"' >> $BASH_ENV
         else
@@ -68,7 +71,7 @@ steps:
                 {
                   "type": "mrkdwn",
                   "text": "*Commit*: <${SLACK_GIT_URL}/commit/${CIRCLE_SHA1}|${CIRCLE_SHA1:0:7}>"
-                }                          
+                }
               ],
               "accessory": {
                 "type": "image",
