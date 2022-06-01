@@ -22,8 +22,8 @@ steps:
       environment:
         PARAM_CLUSTER_NAME: <<parameters.cluster_name>>
         PARAM_GIT_SHA1: ${CIRCLE_SHA1:0:7}
-      name: Deploying to k8s << parameters.cluster_name >> cluster
-      command: <<include(scripts/k8s_deployment_environment.sh)>>
+      name: Export Slack environmental parameters for << parameters.cluster_name >> cluster
+      command: <<include(scripts/k8s_export_parameters.sh)>>
   - checkout
   - aws-eks/update-kubeconfig-with-authenticator:
       install-aws-cli: true
