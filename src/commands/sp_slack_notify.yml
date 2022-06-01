@@ -9,6 +9,10 @@ parameters:
     type: enum
     enum: ["fail", "pass", "always"]
     default: "always"
+  git_url:
+    description: |
+      the url to the project in git, try using pipeline.project.git_url
+    type: string
   link_to_workflow:
     description: |
       should the action button link directly to workflow
@@ -27,7 +31,7 @@ steps:
       name: Export parameters
       command: |
         echo 'export SLACK_MESSAGE_HEADER="<< parameters.header >>"' >> $BASH_ENV
-        echo 'export SLACK_GIT_URL="<< pipeline.project.git_url >>"' >> $BASH_ENV
+        echo 'export SLACK_GIT_URL="<< parameters.git_url >>"' >> $BASH_ENV
         if [ "<< parameters.link_to_workflow >>" = "true" ]
         then
           echo 'export CIRCLE_CI_ACTION_LINK="${SLACK_PARAM_CIRCLECI_HOST}/workflow-run/${CIRCLE_WORKFLOW_ID}"' >> $BASH_ENV
