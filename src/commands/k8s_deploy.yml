@@ -1,0 +1,54 @@
+description: >
+  This command will deploy a previously built docker image to k8s
+parameters:
+  resource_name:
+    type: string
+  resource-file-path:
+  type: string
+  namespace:
+    type: string
+  cluster_name:
+    description: |
+      Which environment to deploy? Options: ["pl-prod", "pl-stage"]
+    type: enum
+    enum: ["pl-prod", "pl-stage"]
+    default: "pl-stage"
+steps:
+  - run:
+      name: Deploying to k8s << parameters.cluster_name >> cluster
+      command: |
+        echo Deploying to k8s << parameters.cluster_name >> cluster
+        if [ "<< parameters.cluster_name >>" = "pl-stage" ]
+        then
+          echo 'export KUBE_AWS_REGION="us-east-1"' >> $BASH_ENV
+        else
+          echo 'export KUBE_AWS_REGION="eu-central-1"' >> $BASH_ENV
+        fi
+        echo 'export ARTIFACT_VERSION="${CIRCLE_SHA1:0:7}"' >> $BASH_ENV
+
+  - checkout
+  - aws-eks/update-kubeconfig-with-authenticator:
+      install-aws-cli: true
+      install-kubectl: true
+      kubectl-version: v1.23.6
+      aws-region: ${KUBE_AWS_REGION}
+      cluster-name: << parameters.cluster_name >>
+  - run:
+      name: Test EKS connection
+      command: |
+        kubectl get deployments -n << parameters.namespace >>
+  - kubernetes/create-or-update-resource:
+      get-rollout-status: true
+      resource-file-path: << parameters.resource-file-path >>
+      resource-name: << parameters.resource_name >>
+      namespace: << parameters.namespace >>
+      show-kubectl-command: true
+      envsubst: true
+  - sp_slack_notify:
+      branch_pattern: main
+      event: fail
+      header: "Deployment to << parameters.cluster_name >> failed :red_circle:"
+  - sp_slack_notify:
+      branch_pattern: main
+      event: pass
+      header: "Deployment to << parameters.cluster_name >> succeeded :white_check_mark:"

@@ -1,0 +1,6 @@
+description: >
+  This is the standard executor used by rust/react projects in privacy lens 
+    machine:
+      image: ubuntu-2004:202111-02
+      docker_layer_caching: false
+    resource_class: xlarge
