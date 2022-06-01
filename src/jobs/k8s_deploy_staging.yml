@@ -15,10 +15,9 @@ parameters:
       the url to the project in git, try using pipeline.project.git_url
     type: string
 steps:
-  steps:
-    - k8s_deploy:
-        resource_name: << parameters.resource_name >>
-        resource: << parameters.resource >>
-        namespace: << parameters.namespace >>
-        git_url: << parameters.git_url >>
-        cluster_name: pl-stage
+  - k8s_deploy:
+      resource_name: << parameters.resource_name >>
+      resource: << parameters.resource >>
+      namespace: << parameters.namespace >>
+      git_url: << parameters.git_url >>
+      cluster_name: pl-stage
