@@ -19,17 +19,11 @@ parameters:
     type: string
 steps:
   - run:
+      environment:
+        PARAM_CLUSTER_NAME: <<parameters.cluster_name>>
+        PARAM_GIT_SHA1: ${CIRCLE_SHA1:0:7}
       name: Deploying to k8s << parameters.cluster_name >> cluster
-      command: |
-        echo Deploying to k8s << parameters.cluster_name >> cluster
-        if [ "<< parameters.cluster_name >>" = "pl-stage" ]
-        then
-          echo 'export KUBE_AWS_REGION="us-east-1"' >> $BASH_ENV
-        else
-          echo 'export KUBE_AWS_REGION="eu-central-1"' >> $BASH_ENV
-        fi
-        echo 'export ARTIFACT_VERSION="${CIRCLE_SHA1:0:7}"' >> $BASH_ENV
-
+      command: <<include(scripts/k8s_deployment_environment.sh)>>
   - checkout
   - aws-eks/update-kubeconfig-with-authenticator:
       install-aws-cli: true
