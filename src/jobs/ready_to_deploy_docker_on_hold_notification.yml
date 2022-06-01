@@ -1,0 +1,10 @@
+description: >
+  Deploy project to production
+
+executor: pl_standard_executor
+
+steps:
+  steps:
+    - sp_slack_notify:
+        header: "Deployment (staging/prod) awaiting approval :raised_hand:"
+        link_to_workflow: true

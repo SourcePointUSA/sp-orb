@@ -1,18 +1,18 @@
 description: >
   This command will deploy a previously built docker image to k8s
 parameters:
-  resource_name:
-    type: string
-  resource-file-path:
-    type: string
-  namespace:
-    type: string
   cluster_name:
     description: |
       Which environment to deploy? Options: ["pl-prod", "pl-stage"]
     type: enum
     enum: ["pl-prod", "pl-stage"]
     default: "pl-stage"
+  resource_name:
+    type: string
+  resource-file-path:
+    type: string
+  namespace:
+    type: string
   git_url:
     description: |
       the url to the project in git, try using pipeline.project.git_url
