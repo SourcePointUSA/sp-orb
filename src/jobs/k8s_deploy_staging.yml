@@ -1,0 +1,24 @@
+description: >
+  Deploy project to staging
+
+executor: k8s_deploy_executor
+
+parameters:
+  resource_name:
+    type: string
+  resource-file-path:
+    type: string
+    default: "deployment/deployment.yaml"
+  namespace:
+    type: string
+  git_url:
+    description: |
+      the url to the project in git, try using pipeline.project.git_url
+    type: string
+steps:
+  - k8s_deploy:
+      resource_name: << parameters.resource_name >>
+      resource-file-path: << parameters.resource-file-path >>
+      namespace: << parameters.namespace >>
+      git_url: << parameters.git_url >>
+      cluster_name: pl-stage

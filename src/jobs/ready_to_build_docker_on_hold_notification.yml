@@ -1,0 +1,17 @@
+description: >
+  ECR push on hold message
+
+executor: pl_standard_executor
+
+parameters:
+  git_url:
+    description: |
+      the url to the project in git, try using pipeline.project.git_url
+    type: string
+
+steps:
+  - sp_slack_notify:
+      header: "ECR push awaiting approval :raised_hand:"
+      link_to_workflow: true
+      git_url: << parameters.git_url >>
+
