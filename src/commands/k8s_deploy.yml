@@ -13,6 +13,10 @@ parameters:
     type: enum
     enum: ["pl-prod", "pl-stage"]
     default: "pl-stage"
+  git_url:
+    description: |
+      the url to the project in git, try using pipeline.project.git_url
+    type: string
 steps:
   - run:
       name: Deploying to k8s << parameters.cluster_name >> cluster
@@ -48,7 +52,9 @@ steps:
       branch_pattern: main
       event: fail
       header: "Deployment to << parameters.cluster_name >> failed :red_circle:"
+      git_url: << parameters.git_url >>
   - sp_slack_notify:
       branch_pattern: main
       event: pass
       header: "Deployment to << parameters.cluster_name >> succeeded :white_check_mark:"
+      git_url: << parameters.git_url >>
