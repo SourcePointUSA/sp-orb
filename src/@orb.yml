@@ -1,7 +1,10 @@
 version: 2.1
 
 description: >
-  Sourcepoint custom build & deploy tooling
+  This orb has custom build and deployment tooling for sourcepoint employees to use.  
+  Some of the functionality included:
+    - custom slack notification with more details
+    - K8s deployment automation to staging/production
 
 display:
   home_url: "https://github.com/SourcePointUSA/sp-orb"
