@@ -8,7 +8,7 @@ display:
   source_url: "https://github.com/SourcePointUSA/sp-orb"
 
 # required 3rd party orbs.
- orbs:
+orbs:
   slack: circleci/slack@4.10.1
   aws-ecr: circleci/aws-ecr@7.3.0
   aws-eks: circleci/aws-eks@2.2.0
