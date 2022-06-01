@@ -8,6 +8,7 @@ parameters:
     type: string
   resource-file-path:
     type: string
+    default: "deployment/deployment.yaml"
   namespace:
     type: string
   git_url:
@@ -20,4 +21,4 @@ steps:
       resource-file-path: << parameters.resource-file-path >>
       namespace: << parameters.namespace >>
       git_url: << parameters.git_url >>
-      cluster_name: pl-production
+      cluster_name: pl-prod
