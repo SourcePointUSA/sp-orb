@@ -1,0 +1,10 @@
+description: TODO this isnt complete
+
+usage:
+  version: 2.1
+  orbs:
+    sp-orb: sourcepoint/sp-orb@x.y
+  workflows:
+    use-my-orb:
+      jobs:
+        - <orb-name>/<job-name>
