@@ -11,7 +11,7 @@ parameters:
     type: string
   resource-file-path:
     type: string
-    default: "deployment/deployment.yaml"
+    default: deployment/deployment.yaml
   namespace:
     type: string
   git_url:
