@@ -4,6 +4,16 @@ description: >
 executor: sp_baseline_docker_executor
 
 parameters:
+  aws_region:
+    description: |
+      Which aws region to deploy to? Options: ["us-east-1", "eu-central-1"]
+    type: enum
+    enum: ["us-east-1", "eu-central-1"]
+    default: eu-central-1
+  cluster_name:
+    description: |
+      Which k8s cluster to deploy to?
+    type: string
   resource_name:
     type: string
   resource_file_path:
@@ -17,8 +27,11 @@ parameters:
     type: string
 steps:
   - k8s_deploy:
+      deployment_environment: STAGING
+      aws_region: << parameters.aws_region >>
+      cluster_name: << parameters.cluster_name >>
       resource_name: << parameters.resource_name >>
       resource_file_path: << parameters.resource_file_path >>
       namespace: << parameters.namespace >>
       git_url: << parameters.git_url >>
-      cluster_name: pl-stage
+

@@ -1,12 +1,22 @@
 description: >
   This command will deploy a previously built docker image to k8s
 parameters:
+  deployment_environment:
+    description: |
+      Which aws region to deploy to? Options: ["STAGING", "PRODUCTION"]
+    type: enum
+    enum: ["STAGING", "PRODUCTION"]
+    default: STAGING
   cluster_name:
     description: |
-      Which environment to deploy? Options: ["pl-prod", "pl-stage"]
+      Which k8s cluster to deploy to?
+    type: string
+  aws_region:
+    description: |
+      Which aws region to deploy to? Options: ["us-east-1", "eu-central-1"]
     type: enum
-    enum: ["pl-prod", "pl-stage"]
-    default: "pl-stage"
+    enum: ["us-east-1", "eu-central-1"]
+    default: eu-central-1
   resource_name:
     type: string
   resource_file_path:
@@ -20,34 +30,18 @@ parameters:
     type: string
 
 steps:
-  - when:
-      condition:
-        equal: [ "pl-stage", << parameters.cluster_name >> ]
-      steps:
-        - run:
-            name: Update env variables for pl-stage
-            command: |
-              echo 'export KUBE_AWS_REGION="us-east-1"' >> $BASH_ENV
-              echo 'export ARTIFACT_VERSION="${CIRCLE_SHA1:0:7}"' >> $BASH_ENV
-              echo 'export DEPLOYMENT_ENVIRONMENT="STAGING"' >> $BASH_ENV
-              source $BASH_ENV
-  - unless:
-      condition:
-        equal: [ "pl-stage", << parameters.cluster_name >> ]
-      steps:
-        - run:
-            name: Update env variables for pl-prod
-            command: |
-              echo 'export KUBE_AWS_REGION="eu-central-1"' >> $BASH_ENV
-              echo 'export ARTIFACT_VERSION="${CIRCLE_SHA1:0:7}"' >> $BASH_ENV
-              echo 'export DEPLOYMENT_ENVIRONMENT="PRODUCTION"' >> $BASH_ENV
-              source $BASH_ENV
+  - run:
+      name: Update env variables for << parameters.deployment_environment >> environment
+      command: |
+        echo 'export DEPLOYMENT_ENVIRONMENT="<< parameters.deployment_environment >>"' >> $BASH_ENV
+        echo 'export KUBE_AWS_REGION="<< parameters.aws_region >>"' >> $BASH_ENV
+        echo 'export ARTIFACT_VERSION="${CIRCLE_SHA1:0:7}"' >> $BASH_ENV
   - checkout
   - aws-eks/update-kubeconfig-with-authenticator:
       install-aws-cli: true
       install-kubectl: true
       kubectl-version: v1.23.6
-      aws-region: ${KUBE_AWS_REGION}
+      aws-region: << parameters.aws_region >>
       cluster-name: << parameters.cluster_name >>
   - run:
       name: Test EKS connection
