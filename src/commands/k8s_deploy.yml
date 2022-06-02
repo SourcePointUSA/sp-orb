@@ -18,13 +18,28 @@ parameters:
     description: |
       the url to the project in git, try using pipeline.project.git_url
     type: string
+
 steps:
-  - run:
-      environment:
-        PARAM_CLUSTER_NAME: <<parameters.cluster_name>>
-        PARAM_GIT_SHA1: ${CIRCLE_SHA1:0:7}
-      name: Export Slack environmental parameters for << parameters.cluster_name >> cluster
-      command: <<include(scripts/k8s_export_parameters.sh)>>
+  - when:
+      condition:
+        equal: [ "pl-stage", << parameters.cluster_name >> ]
+      steps:
+        - run:
+            name: Update env variables for pl-stage
+            command: |
+              echo 'export KUBE_AWS_REGION="us-east-1"' >> $BASH_ENV
+              echo 'export ARTIFACT_VERSION="${CIRCLE_SHA1:0:7}"' >> $BASH_ENV
+              source $BASH_ENV
+  - unless:
+      condition:
+        equal: [ "pl-stage", << parameters.cluster_name >> ]
+      steps:
+        - run:
+            name: Update env variables for pl-prod
+            command: |
+              echo 'export KUBE_AWS_REGION="eu-central-1"' >> $BASH_ENV
+              echo 'export ARTIFACT_VERSION="${CIRCLE_SHA1:0:7}"' >> $BASH_ENV
+              source $BASH_ENV
   - checkout
   - aws-eks/update-kubeconfig-with-authenticator:
       install-aws-cli: true
