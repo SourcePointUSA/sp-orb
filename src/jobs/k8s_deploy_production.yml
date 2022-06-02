@@ -18,7 +18,7 @@ parameters:
 steps:
   - k8s_deploy:
       resource_name: << parameters.resource_name >>
-      resource-file-path: << parameters.resource_file_path >>
+      resource_file_path: << parameters.resource_file_path >>
       namespace: << parameters.namespace >>
       git_url: << parameters.git_url >>
       cluster_name: pl-prod
