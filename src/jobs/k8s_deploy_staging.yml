@@ -27,7 +27,7 @@ parameters:
     type: string
 steps:
   - k8s_deploy:
-      env: STAGING
+      deployment_environment: STAGING
       aws_region: << parameters.aws_region >>
       cluster_name: << parameters.cluster_name >>
       resource_name: << parameters.resource_name >>
