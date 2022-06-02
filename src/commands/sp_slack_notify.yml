@@ -9,6 +9,11 @@ parameters:
     type: enum
     enum: ["fail", "pass", "always"]
     default: "always"
+  circleci_host:
+    default: https://circleci.com
+    description: |
+      CircleCI Host (used as the base for the Workflow URL)
+    type: string
   git_url:
     description: |
       the url to the project in git, try using pipeline.project.git_url
@@ -34,9 +39,9 @@ steps:
         - run:
             name: Update env variables for slack message content (link_to_workflow=true)
             command: |
-              echo 'export SLACK_MESSAGE_HEADER="${PARAM_MESSAGE_HEADER}"' >> $BASH_ENV
-              echo 'export SLACK_GIT_URL="${PARAM_GIT_URL}"' >> $BASH_ENV
-              echo 'export CIRCLE_CI_ACTION_LINK="${PARAM_CIRCLE_CI_HOST}/workflow-run/${PARAM_WORKFLOW_ID}"' >> $BASH_ENV
+              echo 'export SLACK_MESSAGE_HEADER="<< parameters.header >>"' >> $BASH_ENV
+              echo 'export SLACK_GIT_URL="<< parameters.git_url >>"' >> $BASH_ENV
+              echo 'export CIRCLE_CI_ACTION_LINK="<< parameters.circleci_host >>/workflow-run/${CIRCLE_WORKFLOW_ID}"' >> $BASH_ENV
               source $BASH_ENV
   - unless:
       condition: << parameters.link_to_workflow >>
@@ -44,9 +49,9 @@ steps:
         - run:
             name: Update env variables for slack message content (link_to_workflow=false)
             command: |
-              echo 'export SLACK_MESSAGE_HEADER="${PARAM_MESSAGE_HEADER}"' >> $BASH_ENV
-              echo 'export SLACK_GIT_URL="${PARAM_GIT_URL}"' >> $BASH_ENV
-              echo 'export CIRCLE_CI_ACTION_LINK="${PARAM_BUILD_URL}"' >> $BASH_ENV
+              echo 'export SLACK_MESSAGE_HEADER="<< parameters.header >>"' >> $BASH_ENV
+              echo 'export SLACK_GIT_URL="<< parameters.git_url >>"' >> $BASH_ENV
+              echo 'export CIRCLE_CI_ACTION_LINK="${CIRCLE_BUILD_URL}"' >> $BASH_ENV
               source $BASH_ENV
   - slack/notify:
       event: <<parameters.event>>
