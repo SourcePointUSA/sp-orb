@@ -9,7 +9,7 @@ parameters:
     default: "pl-stage"
   resource_name:
     type: string
-  resource-file-path:
+  resource_file_path:
     type: string
     default: deployment/deployment.yaml
   namespace:
@@ -38,7 +38,7 @@ steps:
         kubectl get deployments -n << parameters.namespace >>
   - kubernetes/create-or-update-resource:
       get-rollout-status: true
-      resource-file-path: << parameters.resource-file-path >>
+      resource-file-path: << parameters.resource_file_path >>
       resource-name: << parameters.resource_name >>
       namespace: << parameters.namespace >>
       show-kubectl-command: true
