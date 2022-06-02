@@ -14,4 +14,3 @@ steps:
       header: "ECR push awaiting approval :raised_hand:"
       link_to_workflow: true
       git_url: << parameters.git_url >>
-
