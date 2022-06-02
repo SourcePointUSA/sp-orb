@@ -29,6 +29,7 @@ steps:
             command: |
               echo 'export KUBE_AWS_REGION="us-east-1"' >> $BASH_ENV
               echo 'export ARTIFACT_VERSION="${CIRCLE_SHA1:0:7}"' >> $BASH_ENV
+              echo 'export DEPLOYMENT_ENVIRONMENT="STAGING"' >> $BASH_ENV
               source $BASH_ENV
   - unless:
       condition:
@@ -39,6 +40,7 @@ steps:
             command: |
               echo 'export KUBE_AWS_REGION="eu-central-1"' >> $BASH_ENV
               echo 'export ARTIFACT_VERSION="${CIRCLE_SHA1:0:7}"' >> $BASH_ENV
+              echo 'export DEPLOYMENT_ENVIRONMENT="PRODUCTION"' >> $BASH_ENV
               source $BASH_ENV
   - checkout
   - aws-eks/update-kubeconfig-with-authenticator:
@@ -58,12 +60,12 @@ steps:
       namespace: << parameters.namespace >>
       show-kubectl-command: true
       envsubst: true
-  - sp_slack_notify:
+  - slack_notify:
       branch_pattern: main
       event: fail
       header: "Deployment to << parameters.cluster_name >> failed :red_circle:"
       git_url: << parameters.git_url >>
-  - sp_slack_notify:
+  - slack_notify:
       branch_pattern: main
       event: pass
       header: "Deployment to << parameters.cluster_name >> succeeded :white_check_mark:"
