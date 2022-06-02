@@ -16,7 +16,6 @@ jobs:
     steps:
       - checkout
       # Run your orb's commands to validate them.
-      - sp-orb/greet
 workflows:
   test-deploy:
     jobs:
@@ -31,7 +30,7 @@ workflows:
           pub-type: production
           requires:
             - orb-tools/pack
-            - command-tests
+            #- command-tests
           context: orb-publishing
           filters:
             branches:
