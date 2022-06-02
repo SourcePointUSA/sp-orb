@@ -1,5 +1,5 @@
 description: >
-  This is the executor used by the k8s deployment
+  This is the minimal baseline executor.
 docker:
   - image: 'cimg/base:<<parameters.tag>>'
 parameters:

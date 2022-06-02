@@ -1,7 +1,7 @@
 description: >
   Deploy project to staging
 
-executor: k8s_deploy_executor
+executor: sp_baseline_docker_executor
 
 parameters:
   resource_name:

@@ -1,7 +1,7 @@
 description: >
   ECR push on hold message
 
-executor: pl_standard_executor
+executor: sp_baseline_docker_executor
 
 parameters:
   git_url:
