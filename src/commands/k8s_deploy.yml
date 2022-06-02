@@ -31,7 +31,7 @@ parameters:
 
 steps:
   - run:
-      name: Update env variables for << parameters.deployment_environment >> environment
+      name: Update env variables for << parameters.env >> environment
       command: |
         echo 'export DEPLOYMENT_ENVIRONMENT="<< parameters.env >>"' >> $BASH_ENV
         echo 'export KUBE_AWS_REGION="<< parameters.aws_region >>"' >> $BASH_ENV
