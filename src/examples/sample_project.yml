@@ -6,8 +6,6 @@ usage:
   orbs:
     sp-orb: sourcepoint/sp-orb@x.y
 
-  commands:
-
   jobs:
     build_and_test:
       executor: sp-orb/sp_standard_executor
