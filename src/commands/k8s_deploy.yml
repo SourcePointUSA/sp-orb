@@ -1,9 +1,9 @@
 description: >
   This command will deploy a previously built docker image to k8s
 parameters:
-  deployment_environment:
+  env:
     description: |
-      Which aws region to deploy to? Options: ["STAGING", "PRODUCTION"]
+      Which deployment environment to deploy to? Options: ["STAGING", "PRODUCTION"]
     type: enum
     enum: ["STAGING", "PRODUCTION"]
     default: STAGING
@@ -33,9 +33,10 @@ steps:
   - run:
       name: Update env variables for << parameters.deployment_environment >> environment
       command: |
-        echo 'export DEPLOYMENT_ENVIRONMENT="<< parameters.deployment_environment >>"' >> $BASH_ENV
+        echo 'export DEPLOYMENT_ENVIRONMENT="<< parameters.env >>"' >> $BASH_ENV
         echo 'export KUBE_AWS_REGION="<< parameters.aws_region >>"' >> $BASH_ENV
         echo 'export ARTIFACT_VERSION="${CIRCLE_SHA1:0:7}"' >> $BASH_ENV
+        source $BASH_ENV
   - checkout
   - aws-eks/update-kubeconfig-with-authenticator:
       install-aws-cli: true
