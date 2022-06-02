@@ -26,17 +26,28 @@ parameters:
       Pattern must match the full string, no partial matches.
     type: string
     default: ".+"
+
 steps:
-  - run:
-      environment:
-        PARAM_MESSAGE_HEADER: <<parameters.header>>
-        PARAM_GIT_URL: <<parameters.git_url>>
-        PARAM_LINK_TO_WORKFLOW: <<parameters.link_to_workflow>>
-        PARAM_CIRCLE_CI_HOST: ${SLACK_PARAM_CIRCLECI_HOST}
-        PARAM_WORKFLOW_ID: ${CIRCLE_WORKFLOW_ID}
-        PARAM_BUILD_URL: ${CIRCLE_BUILD_URL}
-      name: Export Slack environmental parameters
-      command: <<include(scripts/slack_export_parameters.sh)>>
+  - when:
+      condition: << parameters.link_to_workflow >>
+      steps:
+        - run:
+            name: Update env variables for slack message content (link_to_workflow=true)
+            command: |
+              echo 'export SLACK_MESSAGE_HEADER="${PARAM_MESSAGE_HEADER}"' >> $BASH_ENV
+              echo 'export SLACK_GIT_URL="${PARAM_GIT_URL}"' >> $BASH_ENV              
+              echo 'export CIRCLE_CI_ACTION_LINK="${PARAM_CIRCLE_CI_HOST}/workflow-run/${PARAM_WORKFLOW_ID}"' >> $BASH_ENV
+              source $BASH_ENV
+  - unless:
+      condition: << parameters.link_to_workflow >>
+      steps:
+        - run:
+            name: Update env variables for slack message content (link_to_workflow=false)
+            command: |
+              echo 'export SLACK_MESSAGE_HEADER="${PARAM_MESSAGE_HEADER}"' >> $BASH_ENV
+              echo 'export SLACK_GIT_URL="${PARAM_GIT_URL}"' >> $BASH_ENV              
+              echo 'export CIRCLE_CI_ACTION_LINK="${PARAM_BUILD_URL}"' >> $BASH_ENV
+              source $BASH_ENV
   - slack/notify:
       event: <<parameters.event>>
       branch_pattern: <<parameters.branch_pattern>>
