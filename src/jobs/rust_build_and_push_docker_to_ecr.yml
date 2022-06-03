@@ -1,0 +1,55 @@
+description: >
+  Deploy project to production
+
+executor: sp_standard_executor
+
+parameters:
+  checkout:
+    default: true
+    description: |
+      Boolean for whether or not to checkout as a first step. Default is true.
+    type: boolean
+  dockerfile:
+    default: Dockerfile
+    description: Name of dockerfile to use. Defaults to Dockerfile.
+    type: string
+  path:
+    default: .
+    description: >-
+      Path to the directory containing your Dockerfile and build context.
+      Defaults to . (working directory).
+    type: string
+  repo:
+    description: Name of an Amazon ECR repository
+    type: string
+  create_repo:
+    default: false
+    description: Should the repo be created if it does not exist?
+    type: boolean
+  cache_name:
+    description: |
+      the unique name of the cache
+    type: string
+    default: rust-env-cache
+  rust_package:
+    description: |
+      the rust package to build
+    type: string
+  git_url:
+    description: |
+      the url to the project in git, try using pipeline.project.git_url
+    type: string
+steps:
+  - checkout
+  - rust_restore_cache:
+      cache_name: << parameters.cache_name >>
+  - rust_build_environment
+  - rust_build_binary:
+      rust_package: << parameters.rust_package >>
+  - docker_build_and_push_image:
+      checkout: << parameters.checkout >>
+      dockerfile: << parameters.dockerfile >>
+      path: << parameters.path >>
+      repo: << parameters.repo >>
+      create-repo: << parameters.create_repo >>
+      git_url: << parameters.git_url >>

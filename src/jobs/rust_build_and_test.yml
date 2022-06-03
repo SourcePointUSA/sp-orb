@@ -1,0 +1,28 @@
+description: >
+  Deploy project to production
+
+executor: sp_standard_executor
+
+parameters:
+  cache_name:
+    description: |
+      the unique name of the cache
+    type: string
+    default: rust-env-cache
+  git_url:
+    description: |
+      the url to the project in git, try using pipeline.project.git_url
+    type: string
+steps:
+  - checkout
+  - rust_restore_cache:
+      cache_name: << parameters.cache_name >>
+  - rust_build_environment
+  - rust_check_code_format
+  - rust_test_code
+  - rust_check_lint
+  - rust_save_cache:
+      cache_name: << parameters.cache_name >>
+  - slack_notify_build_and_test_failure:
+      branch_pattern: main
+      git_url: << parameters.git_url >>
