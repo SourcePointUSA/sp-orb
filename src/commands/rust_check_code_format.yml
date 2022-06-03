@@ -3,7 +3,7 @@ description: >
 
 steps:
   - run:
-      name: Build code format
+      name: Check code format
       command: |
         export PATH=~/.cargo/bin:$PATH
         rustup component add rustfmt
