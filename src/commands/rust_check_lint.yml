@@ -1,0 +1,9 @@
+description: >
+  Run rust lint checker
+
+steps:
+  - run:
+      name: Check Lint
+      command: |
+        export PATH=~/.cargo/bin:$PATH
+        cargo clippy --tests -- -D clippy::all -D clippy::unwrap_used -D clippy::panic -D clippy::expect_used

@@ -1,0 +1,12 @@
+description: >
+  Prepare the rust build environment
+
+steps:
+  - run:
+      name: Build environment
+      command: |
+        sudo apt-get update 
+        sudo apt-get install -y curl wget libssl-dev pkg-config libcurl4-openssl-dev apt-transport-https
+        sudo apt autoclean
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y;
+      no_output_timeout: 1800s

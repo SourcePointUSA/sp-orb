@@ -1,0 +1,10 @@
+description: >
+  Execute cargo test
+
+steps:
+  - run:
+      name: Cargo Test
+      command: |
+        export PATH=~/.cargo/bin:$PATH
+        export RUST_BACKTRACE=1
+        cargo test

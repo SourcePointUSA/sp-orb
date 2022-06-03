@@ -1,0 +1,9 @@
+description: >
+  Run rust code format check
+
+steps:
+  - run:
+      name: Build code format
+      command: |
+        export PATH=~/.cargo/bin:$PATH
+        cargo fmt --all -- --check
