@@ -1,0 +1,17 @@
+description: >
+  Prepare the minikube environment
+parameters:
+  pre_load_docker_image:
+    description: |
+      the image to pre-load into minikube, typically a specific version of an emulator would go here.
+    type: string
+steps:
+  - run:
+      name: Minikube environment
+      command: |
+        wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        sudo cp minikube-linux-amd64 /usr/local/bin/minikube
+        sudo chmod +x /usr/local/bin/minikube
+        minikube start --driver=docker            
+        minikube image load ${AWS_ECR_ACCOUNT_URL}/<< parameters.pre_load_docker_image >>
+      no_output_timeout: 1800s
