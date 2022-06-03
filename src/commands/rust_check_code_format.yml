@@ -6,4 +6,6 @@ steps:
       name: Build code format
       command: |
         export PATH=~/.cargo/bin:$PATH
+        rustup component add rustfmt
+        rustfmt --version
         cargo fmt --all -- --check

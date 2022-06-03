@@ -6,4 +6,5 @@ steps:
       name: Check Lint
       command: |
         export PATH=~/.cargo/bin:$PATH
+        rustup component add clippy
         cargo clippy --tests -- -D clippy::all -D clippy::unwrap_used -D clippy::panic -D clippy::expect_used
