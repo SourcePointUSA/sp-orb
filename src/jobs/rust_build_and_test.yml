@@ -13,7 +13,7 @@ parameters:
     description: |
       the image to pre-load into minikube, typically a specific version of an emulator would go here.
     type: string
-  default: ""
+    default: ""
   ssh_key_fingerprint:
     description: |
       optional ssh key to be added
