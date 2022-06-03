@@ -8,3 +8,4 @@ steps:
         export PATH=~/.cargo/bin:$PATH
         export RUST_BACKTRACE=1
         cargo test
+      no_output_timeout: 1800s
