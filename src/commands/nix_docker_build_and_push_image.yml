@@ -1,0 +1,27 @@
+description: >
+  This command will perform a nix build and push a docker image -- will also notify via slack
+parameters:
+  flake_docker_image_name:
+    description: Name of the flake image name and also the resulting docker name
+    type: string
+  git_url:
+    description: |
+      the url to the project in git, try using pipeline.project.git_url
+    type: string
+
+steps:
+  - run:
+      environment:
+        PARAM_CLUSTER_NAME: << parameters.flake_docker_image_name >>
+      name: nix build and create docker
+      command: <<include(scripts/nix_build_and_push_docker.sh)>>
+  - slack_notify:
+      branch_pattern: main
+      event: fail
+      git_url: << parameters.git_url >>
+      header: "NIX ECR push failed :red_circle:"
+  - slack_notify:
+      branch_pattern: main
+      event: pass
+      git_url: << parameters.git_url >>
+      header: "NIX push succeeded :white_check_mark:"
