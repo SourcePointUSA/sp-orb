@@ -11,5 +11,5 @@ steps:
       command: |
         export PATH=~/.cargo/bin:$PATH
         export RUST_BACKTRACE=1
-        cargo build --target x86_64-unknown-linux-gnu --package << parameters.pre_load_docker_image >>  
-        ls -alR target/x86_64-unknown-linux-gnu/debug/<< parameters.pre_load_docker_image >>
+        cargo build --target x86_64-unknown-linux-gnu --package << parameters.rust_package >>
+        ls -alR target/x86_64-unknown-linux-gnu/debug/<< parameters.rust_package >>
