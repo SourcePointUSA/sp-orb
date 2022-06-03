@@ -1,0 +1,48 @@
+description: >
+  This command will build and push a docker image -- will also notify via slack
+parameters:
+  checkout:
+    default: true
+    description: |
+      Boolean for whether or not to checkout as a first step. Default is true.
+    type: boolean
+  dockerfile:
+    default: Dockerfile
+    description: Name of dockerfile to use. Defaults to Dockerfile.
+    type: string
+  path:
+    default: .
+    description: >-
+      Path to the directory containing your Dockerfile and build context.
+      Defaults to . (working directory).
+    type: string
+  repo:
+    description: Name of an Amazon ECR repository
+    type: string
+  create_repo:
+    default: false
+    description: Should the repo be created if it does not exist?
+    type: boolean
+  git_url:
+    description: |
+      the url to the project in git, try using pipeline.project.git_url
+    type: string
+
+steps:
+  - aws-ecr/build-and-push-image:
+      checkout: << parameters.checkout >>
+      dockerfile: << parameters.dockerfile >>
+      path: << parameters.path >>
+      repo: << parameters.repo >>
+      create-repo: << parameters.create_repo >>
+      tag: "latest,0.0.${CIRCLE_BUILD_NUM},${CIRCLE_SHA1:0:7}"
+  - slack_notify:
+      branch_pattern: main
+      event: fail
+      git_url: << parameters.git_url >>
+      header: "Push to ECR failed :red_circle:"
+  - slack_notify:
+      branch_pattern: main
+      event: pass
+      git_url: << parameters.git_url >>
+      header: "Push to ECR succeeded :white_check_mark:"
