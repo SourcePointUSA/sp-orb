@@ -1,5 +1,5 @@
 description: >
-  Deploy project to production
+  Perform standard rust build and test routine
 
 executor: sp_standard_executor
 

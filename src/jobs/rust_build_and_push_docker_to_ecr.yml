@@ -1,5 +1,5 @@
 description: >
-  Deploy project to production
+  Perform standard build and push routines
 
 executor: sp_standard_executor
 
