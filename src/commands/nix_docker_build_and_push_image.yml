@@ -10,6 +10,7 @@ parameters:
     type: string
 
 steps:
+  - aws-ecr/ecr-login
   - run:
       environment:
         PARAM_CLUSTER_NAME: << parameters.flake_docker_image_name >>
