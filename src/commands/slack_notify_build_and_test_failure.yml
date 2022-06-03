@@ -1,0 +1,22 @@
+description: >
+  This command will build and push a docker image -- will also notify via slack
+parameters:
+  git_url:
+    description: |
+      the url to the project in git, try using pipeline.project.git_url
+    type: string
+  branch_pattern:
+    description: |
+      A comma separated list of regex matchable branch names.
+      Notifications will only be sent if sent from a job from these branches.
+      By default ".+" will be used to match all branches.
+      Pattern must match the full string, no partial matches.
+    type: string
+    default: ".+"
+
+steps:
+  - slack_notify:
+      branch_pattern: <<parameters.branch_pattern>>
+      event: fail
+      git_url: << pipeline.project.git_url >>
+      header: "Failed to build/test :red_circle:"
