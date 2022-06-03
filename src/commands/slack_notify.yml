@@ -31,6 +31,13 @@ parameters:
       Pattern must match the full string, no partial matches.
     type: string
     default: ".+"
+  debug:
+    description: |
+      Enable to view full payload being sent to Slack and response being received from the API call.
+      Redacted content can be viewed by re-running the job with SSH and accessing the log files referenced in the job output.
+      When run in a persistent build environment such as CircleCI Runner, these debug log files may remain in the system's temporary filesystem indefinitely and accumulate over time.
+    type: boolean
+    default: false
 
 steps:
   - when:
@@ -56,6 +63,7 @@ steps:
   - slack/notify:
       event: <<parameters.event>>
       branch_pattern: <<parameters.branch_pattern>>
+      debug: <<parameters.debug>>
       custom: |
         {
           "text": "$SLACK_MESSAGE_HEADER",

@@ -44,8 +44,6 @@ steps:
   - rust_check_lint
   - rust_save_cache:
       cache_name: << parameters.cache_name >>
-  - slack_notify:
+  - slack_notify_build_and_test_failure:
       branch_pattern: main
-      event: fail
       git_url: << parameters.git_url >>
-      header: "Failed to build/test :red_circle:"
