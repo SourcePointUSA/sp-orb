@@ -4,11 +4,6 @@ description: >
 executor: sp_standard_executor
 
 parameters:
-  checkout:
-    default: true
-    description: |
-      Boolean for whether or not to checkout as a first step. Default is true.
-    type: boolean
   dockerfile:
     default: Dockerfile
     description: Name of dockerfile to use. Defaults to Dockerfile.
@@ -47,7 +42,7 @@ steps:
   - rust_build_binary:
       rust_package: << parameters.rust_package >>
   - docker_build_and_push_image:
-      checkout: << parameters.checkout >>
+      checkout: false
       dockerfile: << parameters.dockerfile >>
       path: << parameters.path >>
       repo: << parameters.repo >>

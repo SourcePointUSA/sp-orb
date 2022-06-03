@@ -20,9 +20,7 @@ parameters:
     type: string
 steps:
   - when:
-      condition:
-        - not:
-            - equal: [ "", << parameters.ssh_key_fingerprint >> ]
+      condition: << parameters.ssh_key_fingerprint >>
       steps:
         - add_ssh_keys:
             fingerprints:
