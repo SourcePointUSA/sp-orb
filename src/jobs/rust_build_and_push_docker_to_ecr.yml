@@ -51,5 +51,5 @@ steps:
       dockerfile: << parameters.dockerfile >>
       path: << parameters.path >>
       repo: << parameters.repo >>
-      create-repo: << parameters.create_repo >>
+      create_repo: << parameters.create_repo >>
       git_url: << parameters.git_url >>
