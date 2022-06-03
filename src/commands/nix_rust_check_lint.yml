@@ -1,0 +1,8 @@
+description: >
+  Run nix rust lint checker
+
+steps:
+  - run:
+      name: Check nix rust lint
+      command: |
+        nix-shell --pure --run "cargo clippy --tests -- -D clippy::all -D clippy::unwrap_used -D clippy::panic -D clippy::expect_used"

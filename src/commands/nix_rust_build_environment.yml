@@ -1,0 +1,11 @@
+description: >
+  Prepare the nix rust build environment
+
+steps:
+  - run:
+      name: Build nix rust environment
+      command: |
+        sudo -i nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+        sudo -i nix-channel --update nixpkgs
+        mkdir ~/.config/nixpkgs
+        echo '{ allowUnfree = true; }' >> ~/.config/nixpkgs/config.nix

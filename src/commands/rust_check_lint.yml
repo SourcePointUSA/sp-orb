@@ -3,7 +3,7 @@ description: >
 
 steps:
   - run:
-      name: Check Lint
+      name: Check rust lint
       command: |
         export PATH=~/.cargo/bin:$PATH
         rustup component add clippy

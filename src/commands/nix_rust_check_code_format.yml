@@ -1,0 +1,8 @@
+description: >
+  Run nix rust code format check
+
+steps:
+  - run:
+      name: Check nix rust code format
+      command: |
+        nix-shell --pure --run "cargo fmt --all -- --check"

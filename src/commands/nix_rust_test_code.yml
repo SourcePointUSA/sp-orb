@@ -1,0 +1,8 @@
+description: >
+  Execute nix cargo test
+
+steps:
+  - run:
+      name: Cargo Test
+      command: |
+        nix-shell --pure --run "cargo test"
