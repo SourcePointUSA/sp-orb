@@ -34,4 +34,3 @@ steps:
       resource_file_path: << parameters.resource_file_path >>
       namespace: << parameters.namespace >>
       git_url: << parameters.git_url >>
-
