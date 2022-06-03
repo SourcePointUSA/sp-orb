@@ -5,6 +5,7 @@ parameters:
     description: |
       the unique name of the cache
     type: string
+    default: rust-env-cache
 steps:
   - save_cache:
       key: << parameters.cache_name >>-{{ checksum "Cargo.lock" }}
