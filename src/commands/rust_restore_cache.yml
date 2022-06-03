@@ -8,4 +8,4 @@ parameters:
 steps:
   - restore_cache:
       keys:
-        - << parameter.cache_name >>-{{ checksum "Cargo.lock" }}
+        - << parameters.cache_name >>-{{ checksum "Cargo.lock" }}

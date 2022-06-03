@@ -7,7 +7,7 @@ parameters:
     type: string
 steps:
   - save_cache:
-      key: << parameter.cache_name >>-{{ checksum "Cargo.lock" }}
+      key: << parameters.cache_name >>-{{ checksum "Cargo.lock" }}
       paths:
         - "~/.cargo"
         - "./target"
