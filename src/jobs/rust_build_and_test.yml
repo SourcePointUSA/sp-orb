@@ -9,11 +9,24 @@ parameters:
       the unique name of the cache
     type: string
     default: rust-env-cache
+  ssh_key_fingerprint:
+    description: |
+      optional ssh key to be added
+    type: string
+    default: ""
   git_url:
     description: |
       the url to the project in git, try using pipeline.project.git_url
     type: string
 steps:
+  - when:
+      condition:
+        - not:
+            - equal: [ "", << parameters.ssh_key_fingerprint >> ]
+      steps:
+        - add_ssh_keys:
+            fingerprints:
+              - "<< parameters.ssh_key_fingerprint >>"
   - checkout
   - rust_restore_cache:
       cache_name: << parameters.cache_name >>
