@@ -2,6 +2,7 @@ description: >
   Prepare the nix rust build environment
 
 steps:
+  - nix/install
   - run:
       name: Build nix rust environment
       command: |
