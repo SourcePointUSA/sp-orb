@@ -9,6 +9,11 @@ parameters:
       the unique name of the cache
     type: string
     default: rust-env-cache
+  minikube_pre_load_docker_image:
+    description: |
+      the image to pre-load into minikube, typically a specific version of an emulator would go here.
+    type: string
+  default: ""
   ssh_key_fingerprint:
     description: |
       optional ssh key to be added
@@ -29,6 +34,11 @@ steps:
   - rust_restore_cache:
       cache_name: << parameters.cache_name >>
   - rust_build_environment
+  - when:
+      condition: << parameters.minikube_pre_load_docker_image >>
+      steps:
+        - minikube_environment:
+            pre_load_docker_image: << parameters.minikube_pre_load_docker_image >>
   - rust_check_code_format
   - rust_test_code
   - rust_check_lint
