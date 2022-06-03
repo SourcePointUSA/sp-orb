@@ -6,3 +6,4 @@ steps:
       name: Cargo Test
       command: |
         nix-shell --pure --run "cargo test"
+      no_output_timeout: 1800s
