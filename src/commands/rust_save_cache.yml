@@ -1,0 +1,13 @@
+description: >
+  Restore the circle build environment
+parameters:
+  cache_name:
+    description: |
+      the unique name of the cache
+    type: string
+steps:
+  - save_cache:
+      key: << parameter.cache_name >>-{{ checksum "Cargo.lock" }}
+      paths:
+        - "~/.cargo"
+        - "./target"
