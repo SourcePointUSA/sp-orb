@@ -18,5 +18,5 @@ steps:
   - slack_notify:
       branch_pattern: <<parameters.branch_pattern>>
       event: fail
-      git_url: << pipeline.project.git_url >>
+      git_url: << parameters.git_url >>
       header: "Failed to build/test :red_circle:"
