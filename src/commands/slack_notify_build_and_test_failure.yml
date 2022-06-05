@@ -21,3 +21,4 @@ steps:
       event: fail
       git_url: << parameters.git_url >>
       header: "Failed to build/test :red_circle:"
+      when: on_fail

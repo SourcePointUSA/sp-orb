@@ -3,7 +3,7 @@ description: >
 
 steps:
   - run:
-      name: Cargo Test
+      name: Rust Test Code (Using Cargo)
       command: |
         export PATH=~/.cargo/bin:$PATH
         export RUST_BACKTRACE=1

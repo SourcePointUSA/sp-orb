@@ -41,31 +41,19 @@ parameters:
 
 steps:
   - run:
-      name: Initializing bash environment
+      name: Update env variables for slack message content (link_to_workflow=<< parameters.link_to_workflow >>)
       command: |
-        touch $BASH_ENV
-  - when:
-      condition: << parameters.link_to_workflow >>
-      steps:
-        - run:
-            name: Update env variables for slack message content (link_to_workflow=true)
-            command: |
-              echo 'Update env variables for slack message content (link_to_workflow=true)'
-              echo 'export SLACK_MESSAGE_HEADER="<< parameters.header >>"' >> $BASH_ENV
-              echo 'export SLACK_GIT_URL="<< parameters.git_url >>"' >> $BASH_ENV
-              echo 'export CIRCLE_CI_ACTION_LINK="<< parameters.circleci_host >>/workflow-run/${CIRCLE_WORKFLOW_ID}"' >> $BASH_ENV
-              source $BASH_ENV
-  - unless:
-      condition: << parameters.link_to_workflow >>
-      steps:
-        - run:
-            name: Update env variables for slack message content (link_to_workflow=false)
-            command: |
-              echo 'Update env variables for slack message content (link_to_workflow=false)'
-              echo 'export SLACK_MESSAGE_HEADER="<< parameters.header >>"' >> $BASH_ENV
-              echo 'export SLACK_GIT_URL="<< parameters.git_url >>"' >> $BASH_ENV
-              echo 'export CIRCLE_CI_ACTION_LINK="${CIRCLE_BUILD_URL}"' >> $BASH_ENV
-              source $BASH_ENV
+        echo 'Update env variables for slack message content (link_to_workflow=<< parameters.link_to_workflow >>)'        
+        echo 'export SLACK_MESSAGE_HEADER="<< parameters.header >>"' >> $BASH_ENV
+        echo 'export SLACK_GIT_URL="<< parameters.git_url >>"' >> $BASH_ENV        
+        if [ "<< parameters.link_to_workflow >>" = "true" ]
+        then
+          echo 'export CIRCLE_CI_ACTION_LINK="<< parameters.circleci_host >>/workflow-run/${CIRCLE_WORKFLOW_ID}"' >> $BASH_ENV
+        else
+          echo 'export CIRCLE_CI_ACTION_LINK="${CIRCLE_BUILD_URL}"' >> $BASH_ENV
+        fi
+        source $BASH_ENV
+      when: always
   - slack/notify:
       event: <<parameters.event>>
       branch_pattern: <<parameters.branch_pattern>>
