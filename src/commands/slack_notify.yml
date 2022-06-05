@@ -43,9 +43,9 @@ steps:
   - run:
       name: Update env variables for slack message content (link_to_workflow=<< parameters.link_to_workflow >>)
       command: |
-        echo 'Update env variables for slack message content (link_to_workflow=<< parameters.link_to_workflow >>)'        
+        echo 'Update env variables for slack message content (link_to_workflow=<< parameters.link_to_workflow >>)'
         echo 'export SLACK_MESSAGE_HEADER="<< parameters.header >>"' >> $BASH_ENV
-        echo 'export SLACK_GIT_URL="<< parameters.git_url >>"' >> $BASH_ENV        
+        echo 'export SLACK_GIT_URL="<< parameters.git_url >>"' >> $BASH_ENV
         if [ "<< parameters.link_to_workflow >>" = "true" ]
         then
           echo 'export CIRCLE_CI_ACTION_LINK="<< parameters.circleci_host >>/workflow-run/${CIRCLE_WORKFLOW_ID}"' >> $BASH_ENV
