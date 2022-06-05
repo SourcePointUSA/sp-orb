@@ -40,7 +40,10 @@ parameters:
     default: false
 
 steps:
-  - run: touch $BASH_ENV
+  - run:
+      name: Initializing bash environment
+      command: |
+        touch $BASH_ENV
   - when:
       condition: << parameters.link_to_workflow >>
       steps:
