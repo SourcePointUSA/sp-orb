@@ -7,7 +7,7 @@ parameters:
     type: string
 steps:
   - run:
-      name: Build rust binary in debug mode
+      name: Build rust binary in debug mode (Using Cargo)
       command: |
         export PATH=~/.cargo/bin:$PATH
         export RUST_BACKTRACE=1
