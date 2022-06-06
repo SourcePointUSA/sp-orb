@@ -4,11 +4,14 @@ parameters:
   flake_docker_image_name:
     description: Name of the flake image name and also the resulting docker name
     type: string
-  git_url:
+  project_name:
+    description: |
+      The name of the project to be used in the notification template.
+    type: string
+  project_git_url:
     description: |
       the url to the project in git, try using pipeline.project.git_url
     type: string
-
 steps:
   - aws-ecr/ecr-login
   - run:
@@ -19,10 +22,10 @@ steps:
   - slack_notify:
       branch_pattern: main
       event: fail
-      git_url: << parameters.git_url >>
-      header: "NIX ECR push failed :red_circle:"
+      git_url: << parameters.project_git_url >>
+      header: "<< parameters.project_name >>: NIX ECR push failed :red_circle:"
   - slack_notify:
       branch_pattern: main
       event: pass
-      git_url: << parameters.git_url >>
-      header: "NIX ECR push succeeded :white_check_mark:"
+      git_url: << parameters.project_git_url >>
+      header: "<< parameters.project_name >>: NIX ECR push succeeded :white_check_mark:"

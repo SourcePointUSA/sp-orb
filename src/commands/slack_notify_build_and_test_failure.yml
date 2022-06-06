@@ -1,7 +1,11 @@
 description: >
   This command will build and push a docker image -- will also notify via slack
 parameters:
-  git_url:
+  project_name:
+    description: |
+      The name of the project to be used in the notification template.
+    type: string
+  project_git_url:
     description: |
       the url to the project in git, try using pipeline.project.git_url
     type: string
@@ -13,10 +17,9 @@ parameters:
       Pattern must match the full string, no partial matches.
     type: string
     default: ".+"
-
 steps:
   - slack_notify:
       branch_pattern: << parameters.branch_pattern >>
       event: fail
-      git_url: << parameters.git_url >>
-      header: "Failed to build/test :red_circle:"
+      git_url: << parameters.project_git_url >>
+      header: "<< parameters.project_name >>: Failed to build/test :red_circle:"

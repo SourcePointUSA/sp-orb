@@ -21,7 +21,11 @@ parameters:
     default: deployment/deployment.yaml
   namespace:
     type: string
-  git_url:
+  project_name:
+    description: |
+      The name of the project to be used in the notification template.
+    type: string
+  project_git_url:
     description: |
       the url to the project in git, try using pipeline.project.git_url
     type: string
@@ -33,4 +37,5 @@ steps:
       resource_name: << parameters.resource_name >>
       resource_file_path: << parameters.resource_file_path >>
       namespace: << parameters.namespace >>
-      git_url: << parameters.git_url >>
+      project_name: << parameters.project_name >>
+      project_git_url: << parameters.project_git_url >>

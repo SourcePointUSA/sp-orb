@@ -35,7 +35,11 @@ parameters:
     description: |
       the rust package to build
     type: string
-  git_url:
+  project_name:
+    description: |
+      The name of the project to be used in the notification template.
+    type: string
+  project_git_url:
     description: |
       the url to the project in git, try using pipeline.project.git_url
     type: string
@@ -58,4 +62,5 @@ steps:
       path: << parameters.path >>
       repo: << parameters.repo >>
       create_repo: << parameters.create_repo >>
-      git_url: << parameters.git_url >>
+      project_name: << parameters.project_name >>
+      project_git_url: << parameters.project_git_url >>

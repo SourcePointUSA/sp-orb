@@ -23,11 +23,14 @@ parameters:
     default: false
     description: Should the repo be created if it does not exist?
     type: boolean
-  git_url:
+  project_name:
+    description: |
+      The name of the project to be used in the notification template.
+    type: string
+  project_git_url:
     description: |
       the url to the project in git, try using pipeline.project.git_url
     type: string
-
 steps:
   - aws-ecr/build-and-push-image:
       checkout: << parameters.checkout >>
@@ -39,10 +42,10 @@ steps:
   - slack_notify:
       branch_pattern: main
       event: fail
-      git_url: << parameters.git_url >>
-      header: "ECR push failed :red_circle:"
+      git_url: << parameters.project_git_url >>
+      header: "<< parameters.project_name >>: ECR push failed :red_circle:"
   - slack_notify:
       branch_pattern: main
       event: pass
-      git_url: << parameters.git_url >>
-      header: "ECR push succeeded :white_check_mark:"
+      git_url: << parameters.project_git_url >>
+      header: "<< parameters.project_name >>: ECR push succeeded :white_check_mark:"

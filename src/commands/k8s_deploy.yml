@@ -24,11 +24,14 @@ parameters:
     default: deployment/deployment.yaml
   namespace:
     type: string
-  git_url:
+  project_name:
+    description: |
+      The name of the project to be used in the notification template.
+    type: string
+  project_git_url:
     description: |
       the url to the project in git, try using pipeline.project.git_url
     type: string
-
 steps:
   - run:
       name: Update env variables for << parameters.deployment_environment >> deployment environment
@@ -58,10 +61,10 @@ steps:
   - slack_notify:
       branch_pattern: main
       event: fail
-      header: "Deployment to << parameters.cluster_name >> failed :red_circle:"
-      git_url: << parameters.git_url >>
+      header: "<< parameters.project_name >>: Deployment to << parameters.cluster_name >> failed :red_circle:"
+      git_url: << parameters.project_git_url >>
   - slack_notify:
       branch_pattern: main
       event: pass
-      header: "Deployment to << parameters.cluster_name >> succeeded :white_check_mark:"
-      git_url: << parameters.git_url >>
+      header: "<< parameters.project_name >>: Deployment to << parameters.cluster_name >> succeeded :white_check_mark:"
+      git_url: << parameters.project_git_url >>

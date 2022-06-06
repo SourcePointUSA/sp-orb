@@ -4,13 +4,16 @@ description: >
 executor: sp_baseline_docker_executor
 
 parameters:
-  git_url:
+  project_name:
+    description: |
+      The name of the project to be used in the notification template.
+    type: string
+  project_git_url:
     description: |
       the url to the project in git, try using pipeline.project.git_url
     type: string
-
 steps:
   - slack_notify:
-      header: "ECR push awaiting approval :raised_hand:"
+      header: "<< parameters.project_name >>: ECR push awaiting approval :raised_hand:"
       link_to_workflow: true
-      git_url: << parameters.git_url >>
+      git_url: << parameters.project_git_url >>

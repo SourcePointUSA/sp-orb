@@ -38,7 +38,6 @@ parameters:
       When run in a persistent build environment such as CircleCI Runner, these debug log files may remain in the system's temporary filesystem indefinitely and accumulate over time.
     type: boolean
     default: false
-
 steps:
   - run:
       name: Update env variables for slack message content (link_to_workflow=<< parameters.link_to_workflow >>)

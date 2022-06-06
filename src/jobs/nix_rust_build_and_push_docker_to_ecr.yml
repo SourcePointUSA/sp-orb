@@ -17,7 +17,11 @@ parameters:
   flake_docker_image_name:
     description: Name of the flake image name and also the resulting docker name
     type: string
-  git_url:
+  project_name:
+    description: |
+      The name of the project to be used in the notification template.
+    type: string
+  project_git_url:
     description: |
       the url to the project in git, try using pipeline.project.git_url
     type: string
@@ -34,4 +38,5 @@ steps:
   - nix_rust_build_environment
   - nix_docker_build_and_push_image:
       flake_docker_image_name: << parameters.flake_docker_image_name >>
-      git_url: << parameters.git_url >>
+      project_name: << parameters.project_name >>
+      project_git_url: << parameters.project_git_url >>
