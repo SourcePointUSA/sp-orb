@@ -33,15 +33,15 @@ steps:
   - checkout
   - rust_restore_cache:
       cache_name: << parameters.cache_name >>
-  - rust_build_environment
+  - nix_rust_build_environment
   - when:
       condition: << parameters.minikube_pre_load_docker_image >>
       steps:
         - minikube_environment:
             pre_load_docker_image: << parameters.minikube_pre_load_docker_image >>
-  - rust_check_code_format
-  - rust_check_lint
-  - rust_test_code
+  - nix_rust_check_code_format
+  - nix_rust_check_lint
+  - nix_rust_test_code
   - rust_save_cache:
       cache_name: << parameters.cache_name >>
   - slack_notify_build_and_test_failure:

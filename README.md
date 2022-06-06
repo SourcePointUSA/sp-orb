@@ -1,7 +1,8 @@
 ## sp-orb
 ### Status
 
-[![CircleCI Build Status](https://circleci.com/gh/SourcePointUSA/sp-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/SourcePointUSA/sp-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/sourcepoint/sp-orb.svg)](https://circleci.com/orbs/registry/orb/sourcepoint/sp-orb) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/SourcePointUSA/sp-orb/master/LICENSE) 
+[![CircleCI Build Status](https://circleci.com/gh/SourcePointUSA/sp-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/SourcePointUSA/sp-orb)
+[![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/SourcePointUSA/sp-orb/master/LICENSE) 
 
 ### Description
 This orb has custom build and deployment tooling for sourcepoint employees to use.
