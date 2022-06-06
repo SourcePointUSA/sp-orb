@@ -25,4 +25,4 @@ steps:
       branch_pattern: main
       event: pass
       git_url: << parameters.git_url >>
-      header: "NIX push succeeded :white_check_mark:"
+      header: "NIX ECR push succeeded :white_check_mark:"
