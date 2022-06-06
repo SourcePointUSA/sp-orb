@@ -13,7 +13,7 @@ steps:
   - aws-ecr/ecr-login
   - run:
       environment:
-        PARAM_CLUSTER_NAME: << parameters.flake_docker_image_name >>
+        $PARAM_FLAKE_DOCKER_IMAGE_NAME: << parameters.flake_docker_image_name >>
       name: nix build and create docker
       command: <<include(scripts/nix_build_and_push_docker.sh)>>
   - slack_notify:
