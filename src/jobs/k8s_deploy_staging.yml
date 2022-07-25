@@ -29,6 +29,10 @@ parameters:
     description: |
       the url to the project in git, try using pipeline.project.git_url
     type: string
+  repository_name:
+    description: Name of an Amazon ECR repository
+    type: string
+    default: ''
 steps:
   - k8s_deploy:
       deployment_environment: STAGING
@@ -39,3 +43,4 @@ steps:
       namespace: << parameters.namespace >>
       project_name: << parameters.project_name >>
       project_git_url: << parameters.project_git_url >>
+      repository_name: << parameters.repository_name >>
