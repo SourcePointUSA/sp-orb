@@ -15,3 +15,13 @@ steps:
   - aws-s3/copy:
       from: << parameters.file_to_upload >>
       to: s3://<< parameters.s3_destination_bucket >>
+  - slack_notify:
+      branch_pattern: main
+      event: fail
+      git_url: << parameters.project_git_url >>
+      header: "<< parameters.project_name >>: s3 push failed :red_circle:"
+  - slack_notify:
+      branch_pattern: main
+      event: pass
+      git_url: << parameters.project_git_url >>
+      header: "<< parameters.project_name >>: s3 ECR push succeeded :white_check_mark:"
