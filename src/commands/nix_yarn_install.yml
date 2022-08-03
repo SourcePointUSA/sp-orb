@@ -1,0 +1,9 @@
+description: >
+  Execute nix yarn install
+
+steps:
+  - run:
+      name: Yarn Install
+      command: |
+        nix-shell --pure --run "yarn install"
+      no_output_timeout: 1800s

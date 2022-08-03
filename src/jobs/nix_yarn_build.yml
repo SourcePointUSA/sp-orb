@@ -33,6 +33,7 @@ steps:
   - yarn_restore_cache:
       cache_name: << parameters.cache_name >>
   - nix_build_environment
+  - nix_yarn_install
   - nix_yarn_build_code
   - yarn_save_cache:
       cache_name: << parameters.cache_name >>
