@@ -32,4 +32,4 @@ steps:
       branch_pattern: main
       event: pass
       git_url: << parameters.project_git_url >>
-      header: "<< parameters.project_name >>: s3 ECR push succeeded :white_check_mark:"
+      header: "<< parameters.project_name >>: s3 push succeeded :white_check_mark:"
