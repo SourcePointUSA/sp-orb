@@ -49,7 +49,7 @@ steps:
   - nix_yarn_build_code
   - nix_zip_file:
       zip_filename: << parameters.zip_filename_prefix >>-${CIRCLE_BUILD_NUM}-${CIRCLE_SHA1:0:7}.zip
-      input_folder: << parameters.zip_input_folder >>
+      zip_input_folder: << parameters.zip_input_folder >>
   - s3_push:
       file_to_upload: << parameters.zip_filename_prefix >>-${CIRCLE_BUILD_NUM}-${CIRCLE_SHA1:0:7}.zip
       s3_destination_bucket: << parameters.s3_destination_bucket >>
