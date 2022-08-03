@@ -1,0 +1,13 @@
+description: >
+  Restore the circle build environment
+parameters:
+  cache_name:
+    description: |
+      the unique name of the cache
+    type: string
+    default: yarn-env-cache
+steps:
+  - save_cache:
+      key: << parameters.cache_name >>-{{ checksum "yarn.lock" }}
+      paths:
+        - "~/node_modules"

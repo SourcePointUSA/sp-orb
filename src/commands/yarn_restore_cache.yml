@@ -1,0 +1,12 @@
+description: >
+  Restore the circle build environment
+parameters:
+  cache_name:
+    description: |
+      the unique name of the cache
+    type: string
+    default: yarn-env-cache
+steps:
+  - restore_cache:
+      keys:
+        - << parameters.cache_name >>-{{ checksum "yarn.lock" }}

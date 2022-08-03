@@ -1,0 +1,9 @@
+description: >
+  Execute nix yarn build
+
+steps:
+  - run:
+      name: Yarn Build
+      command: |
+        nix-shell --pure --run "yarn build"
+      no_output_timeout: 1800s

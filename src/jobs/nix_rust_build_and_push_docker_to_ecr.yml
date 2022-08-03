@@ -35,7 +35,7 @@ steps:
   - checkout
   - rust_restore_cache:
       cache_name: << parameters.cache_name >>
-  - nix_rust_build_environment
+  - nix_build_environment
   - nix_docker_build_and_push_image:
       flake_docker_image_name: << parameters.flake_docker_image_name >>
       project_name: << parameters.project_name >>
