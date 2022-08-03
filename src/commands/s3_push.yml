@@ -1,0 +1,17 @@
+description: >
+  Push to s3
+
+parameters:
+  file_to_upload:
+    description: |
+      the name of the file to upload
+    type: string
+  s3_destination_bucket:
+    description: |
+      the s3 destination to push to
+    type: string
+
+steps:
+  - aws-s3/copy:
+      from: << parameters.file_to_upload >>
+      to: << parameters.s3_destination_bucket >>

@@ -1,0 +1,19 @@
+description: >
+  Execute nix zip
+
+parameters:
+  zip_filename:
+    description: |
+      the prefix of the zip file
+    type: string
+  zip_input_folder:
+    description: |
+      the source folder to zip up
+    type: string
+
+steps:
+  - run:
+      name: zip
+      command: |
+        nix-shell --pure --run "zip -r << parameters.zip_filename >> << parameters.zip_input_folder >>"
+      no_output_timeout: 1800s
