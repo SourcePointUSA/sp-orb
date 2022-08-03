@@ -2,6 +2,14 @@ description: >
   Push to s3
 
 parameters:
+  project_name:
+    description: |
+      The name of the project to be used in the notification template.
+    type: string
+  project_git_url:
+    description: |
+      the url to the project in git, try using pipeline.project.git_url
+    type: string
   file_to_upload:
     description: |
       the name of the file to upload
