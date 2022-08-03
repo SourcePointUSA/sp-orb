@@ -1,10 +1,10 @@
 description: >
-  Prepare the nix rust build environment
+  Prepare the nix build environment
 
 steps:
   - nix/install
   - run:
-      name: Build nix rust environment
+      name: Build nix environment
       command: |
         sudo -i nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
         sudo -i nix-channel --update nixpkgs
