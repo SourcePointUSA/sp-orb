@@ -14,4 +14,4 @@ parameters:
 steps:
   - aws-s3/copy:
       from: << parameters.file_to_upload >>
-      to: << parameters.s3_destination_bucket >>
+      to: s3://<< parameters.s3_destination_bucket >>
