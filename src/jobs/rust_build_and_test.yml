@@ -31,6 +31,7 @@ parameters:
     description: |
       Extra clippy arguments that should be passed into the clippy command
     type: string
+    default: "-- -D clippy::all -D clippy::unwrap_used -D clippy::panic -D clippy::expect_used"
 steps:
   - when:
       condition: << parameters.ssh_key_fingerprint >>
