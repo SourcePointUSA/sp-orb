@@ -49,7 +49,7 @@ steps:
             pre_load_docker_image: << parameters.minikube_pre_load_docker_image >>
   - nix_rust_check_code_format
   - nix_rust_check_lint:
-    clippy_extra_params: << parameters.clippy_extra_params >>
+      clippy_extra_params: << parameters.clippy_extra_params >>
   - nix_rust_test_code
   - rust_save_cache:
       cache_name: << parameters.cache_name >>
