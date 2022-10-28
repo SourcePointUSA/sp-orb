@@ -1,10 +1,15 @@
 description: >
   Run rust lint checker
-
+parameters:
+  clippy_extra_params:
+    description: |
+      Extra clippy commands that should be passed
+    type: string
+    default: "-- -D clippy::all -D clippy::unwrap_used -D clippy::panic -D clippy::expect_used"
 steps:
   - run:
       name: Check rust lint (Using Cargo)
       command: |
         export PATH=~/.cargo/bin:$PATH
         rustup component add clippy
-        cargo clippy --tests -- -D clippy::all -D clippy::unwrap_used -D clippy::panic -D clippy::expect_used
+        cargo clippy --tests << parameters.clippy_extra_params >>

@@ -1,8 +1,13 @@
 description: >
   Run nix rust lint checker
-
+parameters:
+  clippy_extra_params:
+    description: |
+      Extra clippy commands that should be passed
+    type: string
+    default: "-- -D clippy::all -D clippy::unwrap_used -D clippy::panic -D clippy::expect_used"
 steps:
   - run:
       name: Check nix rust lint
       command: |
-        nix-shell --pure --run "cargo clippy --tests -- -D clippy::all -D clippy::unwrap_used -D clippy::panic -D clippy::expect_used"
+        nix-shell --pure --run "cargo clippy --tests << parameters.clippy_extra_params >>"

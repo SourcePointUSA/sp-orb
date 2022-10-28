@@ -27,6 +27,10 @@ parameters:
     description: |
       the url to the project in git, try using pipeline.project.git_url
     type: string
+  clippy_extra_params:
+    description: |
+      Extra clippy commands that should be passed
+    type: string
 steps:
   - when:
       condition: << parameters.ssh_key_fingerprint >>
@@ -44,7 +48,8 @@ steps:
         - minikube_environment:
             pre_load_docker_image: << parameters.minikube_pre_load_docker_image >>
   - nix_rust_check_code_format
-  - nix_rust_check_lint
+  - nix_rust_check_lint:
+    clippy_extra_params: << parameters.clippy_extra_params >>
   - nix_rust_test_code
   - rust_save_cache:
       cache_name: << parameters.cache_name >>
