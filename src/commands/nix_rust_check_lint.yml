@@ -3,7 +3,7 @@ description: >
 parameters:
   clippy_extra_params:
     description: |
-      Extra clippy commands that should be passed
+      Extra clippy arguments that should be passed into the clippy command
     type: string
     default: "-- -D clippy::all -D clippy::unwrap_used -D clippy::panic -D clippy::expect_used"
 steps:

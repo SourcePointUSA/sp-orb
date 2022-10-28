@@ -29,7 +29,7 @@ parameters:
     type: string
   clippy_extra_params:
     description: |
-      Extra clippy commands that should be passed
+      Extra clippy arguments that should be passed into the clippy command
     type: string
 steps:
   - when:
