@@ -7,7 +7,7 @@ EXIT_CODE=$?
 set -e
 
 # TODO figure out if we still need this crap
-if [ $EXIT_CODE -neq 0 ]
+if [ $EXIT_CODE -ne 0 ]
 then
   echo "double build!"
   sudo chmod -R 777 /nix/store/$(ls /nix/store/ | grep crates-io | grep -v '.drv$')
