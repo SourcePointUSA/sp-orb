@@ -1,5 +1,5 @@
 description: >
-  This is the standard executor used by sourcepoint
+  This is the standard executor used by SourcePoint
 machine:
   image: ubuntu-2004:202111-02
   docker_layer_caching: false
