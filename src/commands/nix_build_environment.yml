@@ -10,4 +10,5 @@ steps:
         sudo -i nix-channel --update nixpkgs
         mkdir ~/.config/nixpkgs
         echo '{ allowUnfree = true; }' >> ~/.config/nixpkgs/config.nix
+        nix-shell -p cachix --run "cachix use cuda-maintainers"
       no_output_timeout: 1800s
