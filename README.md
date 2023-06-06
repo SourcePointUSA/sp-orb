@@ -5,7 +5,7 @@
 [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/SourcePointUSA/sp-orb/master/LICENSE) 
 
 ### Description
-This orb has custom build and deployment tooling for sourcepoint employees to use.
+This orb has custom build and deployment tooling for sourcepoint employees to use. 
 Some of the functionality included:
 - custom slack notification with more details
 - K8s deployment automation to staging/production
